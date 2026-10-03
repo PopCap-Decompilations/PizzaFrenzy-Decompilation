@@ -1,0 +1,9 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Release" />
+    <BuildType Name="Debug" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="source/PizzaFrenzy/PizzaFrenzy.vcxproj" Id="64cd6ddd-3b79-4065-95d3-865bdecedd5d" />
+  <Project Path="source/engine/engine.vcxproj" Id="dcec3e84-ec2e-4ebf-97c5-1348533b955c" />
+</Solution>

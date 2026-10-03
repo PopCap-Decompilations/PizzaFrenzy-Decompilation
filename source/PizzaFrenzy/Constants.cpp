@@ -1,0 +1,52 @@
+// The game's tuning constants (0x4FA1FC-0x4FA2B8 in .rdata), in the original's order. Every use in the original
+// loads them from memory, so they are defined here and nowhere else.
+#include "Constants.h"
+
+const float g_typerSpeed = 120.0f;				// text typers: characters per second (dialogs, menu captions)
+const float g_typerDelay = 0.0f;				// text typers: delay before typing
+const float g_typerWidth = 360.0f;				// text typers: wrap width
+const float g_dailyReportDelay = 0.15f;			// guess: StoryScreen::initDailyReport
+const float g_unused4FA20C = 0.01f;
+const float g_unused4FA210 = 0.03f;
+const float g_levelIntroFadeTime = 0.5f;		// guess: LevelIntroAction::enter
+const float g_tipThreeStarTime = 1.5f;			// GameLogic::placeTip: delivered within 1.5 s: three stars
+const float g_tipTwoStarTime = 3.0f;			// within 3 s: two stars, else one
+const float g_tipJarRollupTime = 1.0f;			// HudScreen::updateTipJarRollup
+const int g_tipValueScale = 5;					// Tip::init multiplies the customer stage's tip value by it
+const int g_unused4FA228 = 1;
+const int g_satisfactionPenalty = -10;			// satisfaction change (graffiti, missed orders)
+const int g_startingSatisfaction = 50;			// GameProgress::reset / resetLevelStats
+const int g_lowSatisfaction = 20;				// at or below it, the low-satisfaction warning (adjustSatisfaction)
+const int g_pizzaEditorUnlock = 5;				// guess: compared by MainMenuScreen::updateEditPizzaLock and the menu states
+const int g_unused4FA23C = 4;
+const int g_unused4FA240 = 3;
+const int g_unused4FA244 = 20;
+const int g_toppingPrice = 10;					// base price multiplier of a topping
+const int g_premiumToppingPrice = 15;			// multiplier for premium toppings
+const int g_happinessBonus = 100;				// HudScreen::checkHappinessBonus
+const int g_frenzyComboSize = 5;				// combo icons per frenzy level
+const int g_frenzyComboBonus = 300;				// cash per frenzy level
+const int g_defaultTipValue = 10;				// base tip value without a customer
+const int g_thiefBillCount = 10;				// bills the Thief steals (the Movie Star gives half as many)
+const float g_billInterval = 0.1f;				// delay between two bills
+const int g_stolenBillCash = -100;				// cash change per stolen bill
+const float g_unused4FA26C = 0.7f;
+const float g_orderShuffleTime = 3.0f;			// guess: PizzaOrderPopup scrambling / OrderShuffleState
+const float g_unused4FA274 = 1.0f;
+const float g_orderPrepareDelay = 0.5f;			// guess: GameLogic::prepareOrder
+const float g_copterLiftTime = 0.5f;			// CopterLiftState duration
+const int g_copterLiftHeight = 100;				// pixels the copter body rises
+const float g_unused4FA284 = 4.0f;
+const float g_waveTimeScale = 1.5f;				// guess: spawnWave (GameLogic, ConcentrationGameLogic, MemoryGame)
+const float g_moneyCollectTime = 1.5f;			// guess: GameLogic::removeTip / collectMoney
+const float g_popupShowTime = 0.2f;				// PopupShowState
+const float g_popupCloseTime = 0.5f;			// PopupCloseState, OrderHangUpState
+const float g_unused4FA298 = 0.1f;
+const float g_unused4FA29C = 0.1f;
+const float g_unused4FA2A0 = 0.1f;
+const float g_comboShowTime = 1.5f;				// guess: KitchenTile::showCombo
+const float g_comboFadeTime = 0.2f;				// guess: KitchenTile::showCombo
+const float g_comboDelay = 0.1f;				// guess: KitchenTile::showCombo
+const float g_orderPrepareTime = 3.0f;			// guess: GameLogic::prepareOrder
+const float g_memoryFlipTime = 0.35f;			// guess: MemoryGame::updateOrders
+const int g_maxWaveOrders = 8;					// guess: GameLogic::spawnWave

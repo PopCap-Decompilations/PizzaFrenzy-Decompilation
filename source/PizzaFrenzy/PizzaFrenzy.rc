@@ -1,0 +1,103 @@
+// PizzaFrenzy.rc
+// The resources of the original PizzaFrenzy.exe (Pizza Frenzy Deluxe 1.0, PopCap build of 2008-02-11): the two
+// icons, the string table, the Games Explorer definition and the version. The original has no manifest.
+// IDI_MAIN_ICON (Vista sizes) and __GDF_XML come from PopCap's re-release; icon 103 is the game's own.
+
+#include <windows.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icons
+//
+
+103             ICON    "PizzaFrenzy103.ico"
+IDI_MAIN_ICON   ICON    "PizzaFrenzy.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Game Definition
+//
+
+__GDF_XML       DATA    "gdf.xml"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Strings
+//
+
+STRINGTABLE
+BEGIN
+    104     "Welcome to Pizza Frenzy!"
+    105     "100%% DELIVERED - GREAT JOB %1!s!"
+    201     "GameHouse"
+    202     "Pizza Frenzy"
+    203     "Pizza Frenzy"
+    204     "Hello, %1%!"
+    205     "Simon Says Mode"
+    206     "Speed Mode"
+    207     "Memory Mode"
+    208     "LEVEL CLEAR!"
+    209     "PERFECT JOB!"
+    210     "GAME OVER!"
+    211     "PIZZA FRENZY"
+    212     "DOUBLE FRENZY"
+    213     "TRIPLE FRENZY"
+    214     "SUPER FRENZY"
+    215     "MEGA FRENZY"
+    216     "ULTRA FRENZY"
+    217     "GOOD JOB!"
+    218     "TIME'S UP!"
+    219     "Your custom designed pizza."
+    220     "Challenge your reflexes in this fun-filled action mode. Can you fill orders fast enough?"
+    221     "Exercise your mind in this ""Simon Says"" inspired mode. Can you recall the sequence of orders?"
+    222     "Stimulate your memory in this concentration-like mode. Can you recall who ordered what?"
+    223     "%1!s! Level %2!d!"
+    224     "Day %1!d!"
+    225     "%1!s!"
+    226     """%1!s!"""
+    227     "DAY %1!d! - %2!s!"
+    228     "DAY %1!d! - BONUS SCREEN"
+    229     "TOTAL SALES: $"
+    230     "%1!s! COUPON"
+    231     "Unlocking this topping earns you the Stromboli nickname '%1!s!'"
+    232     "Pizza Frenzy was made by my friends at Sprout Games.\\n\\nIt was designed and engineered by Ed Allard, James Gwertzman, and Joe Mobley.\\n\\nMatt Holmberg created the art, and Duncan designed the cities.\\n\\nFun facts and toppings were written by Maggie Tai Tucker and Rebecca Woodhouse.\\n\\nSounds and music were composed by Seattle Sound Solutions.\\n\\n\\nSpecial thanks to GameHouse!\\n\\n"
+    233     "LOCKED"
+    234     "This upgrade means that now you can pick up more than one %1!s! order at a time!"
+    235     "Now you can pick up more than one %1!s! order at a time in Speed Mode or Simon Says Mode!"
+END
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+FILEVERSION 5, 8, 30, 1
+PRODUCTVERSION 5, 8, 30, 1
+FILEFLAGSMASK 0x17L
+FILEFLAGS 0x0L
+FILEOS 0x4L
+FILETYPE 0x0L
+FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "Sprout Games, LLC"
+            VALUE "FileDescription", "PizzaFrenzy"
+            VALUE "FileVersion", "5, 8, 30, 1"
+            VALUE "InternalName", "PizzaFrenzy"
+            VALUE "LegalCopyright", "Copyright (C) 2004"
+            VALUE "OriginalFilename", "PizzaFrenzy.rc"
+            VALUE "ProductName", " PizzaFrenzy"
+            VALUE "ProductVersion", "5, 8, 30, 1"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END

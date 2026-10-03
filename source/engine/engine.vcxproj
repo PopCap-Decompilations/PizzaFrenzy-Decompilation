@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <!-- Sprout Games' engine (namespace engine: Object, Interface, Exception, IOException in the original's RTTI) and
+       the libraries it links (libpng 1.2.5, zlib 1.1.4, libjpeg 6b, Ogg Vorbis), built as a static library that the
+       game links, the way the WinFish solution builds SexyAppFramework. Compiler settings are the game's. -->
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <ProjectGuid>{DCEC3E84-EC2E-4EBF-97C5-1348533B955C}</ProjectGuid>
+    <RootNamespace>engine</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>engine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v145</PlatformToolset>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <OutDir>$(ProjectDir)..\..\Intermediates\$(ProjectName)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)..\..\Intermediates\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>engine</TargetName>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <ConformanceMode>false</ConformanceMode>
+      <LanguageStandard>stdcpp14</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)..;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <!-- VS2003 had neither thread-safe local statics nor sized deallocation. C4250 (inherits via dominance) fires
+           for every class the engine's virtual inheritance gives an Interface through two paths. -->
+      <AdditionalOptions>/Zc:threadSafeInit- /Zc:sizedDealloc- /wd4996 /wd4250 %(AdditionalOptions)</AdditionalOptions>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <StringPooling>true</StringPooling>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <SupportJustMyCode>false</SupportJustMyCode>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>MaxSpeed</Optimization>
+      <OmitFramePointers>true</OmitFramePointers>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup Label="Engine sources (every .cpp/.h in this folder)">
+    <!-- The image and sound readers include the libraries' headers (jmorecfg.h needs _VISUALC_, as for libs\jpeg). -->
+    <ClCompile Include="*.cpp">
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\zlib;$(ProjectDir)libs\libpng;$(ProjectDir)libs\jpeg;$(ProjectDir)libs\ogg\include;$(ProjectDir)libs\vorbis\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_VISUALC_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClInclude Include="*.h" />
+  </ItemGroup>
+  <!-- The libraries the original links, as released (identified from the EXE: version strings of zlib and libpng,
+       IJG's copyright, and for Ogg Vorbis the CRC/mask tables in .data (libogg 1.1), the window tables and
+       vorbis_block_clear's analysisp test (libvorbis 1.0.1)). Their sources are unchanged; warnings are off. Each
+       library compiles into its own folder: libvorbis's window.c and the engine's Window.cpp would otherwise both
+       be window.obj. -->
+  <ItemGroup Label="zlib 1.1.4">
+    <ClCompile Include="libs\zlib\*.c">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ObjectFileName>$(IntDir)zlib\</ObjectFileName>
+    </ClCompile>
+    <ClInclude Include="libs\zlib\*.h" />
+  </ItemGroup>
+  <ItemGroup Label="libpng 1.2.5">
+    <ClCompile Include="libs\libpng\*.c">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ObjectFileName>$(IntDir)libpng\</ObjectFileName>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\zlib;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="libs\libpng\*.h" />
+  </ItemGroup>
+  <ItemGroup Label="libjpeg 6b">
+    <!-- jconfig.h is IJG's jconfig.vc (boolean = unsigned char: sizeof(jpeg_decompress_struct) = 0x1B0 as the
+         original passes to jpeg_CreateDecompress); jmorecfg.h is ImageMagick's Windows variant, keyed on _VISUALC_. -->
+    <ClCompile Include="libs\jpeg\*.c">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ObjectFileName>$(IntDir)jpeg\</ObjectFileName>
+      <PreprocessorDefinitions>_VISUALC_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <ClInclude Include="libs\jpeg\*.h" />
+  </ItemGroup>
+  <ItemGroup Label="libogg 1.1 and libvorbis 1.0.1">
+    <ClCompile Include="libs\ogg\src\*.c">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ObjectFileName>$(IntDir)ogg\</ObjectFileName>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClCompile Include="libs\vorbis\lib\*.c">
+      <WarningLevel>TurnOffAllWarnings</WarningLevel>
+      <ObjectFileName>$(IntDir)vorbis\</ObjectFileName>
+      <AdditionalIncludeDirectories>$(ProjectDir)libs\vorbis\include;$(ProjectDir)libs\vorbis\lib;$(ProjectDir)libs\ogg\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="libs\ogg\include\ogg\*.h" />
+    <ClInclude Include="libs\vorbis\include\vorbis\*.h" />
+    <ClInclude Include="libs\vorbis\lib\*.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
